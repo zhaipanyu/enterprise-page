@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+
+	<style>
+		.alert-window {
+			width: 500px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #fff;
+			border-radius: 4px;
+			z-index: 3;
+			display: none;
+		}
+
+		.cover {
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background-color: #ccc;
+			z-index: 2;
+		}
+
+		.clearfix:after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		.header {
+			position: relative;
+			border-bottom: 1px solid #ccc;
+			height: 36px;
+			line-height: 36px;
+		}
+
+		.header h2 {
+			padding-left: 10px;
+			margin-top: 5px;
+		}
+
+		.header button {
+			float: right;
+			border: none;
+			background-color: #fff;
+			position: absolute;
+			top: 0;
+			right: 10px;
+			font-size: 20px;
+			outline: none;
+			cursor: pointer;
+		}
+
+		.content {
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+
+		.footer button {
+			float: right;
+			border: none;
+			background-color: #fff;
+			outline: none;
+			cursor: pointer;
+			margin-right: 10px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			font-size: 16px;
+		}
+
+		.footer {
+			border-top: 1px solid #ccc;
+		}
+
+
+	</style>
+</head>
+
+<body>
+	<button class="click-me">点我</button>
+
+	<div class="alert-window">
+		<div class="header clearfix">
+			<h2>我是标题</h2>
+			<button class="close">×</button>
+
+		</div>
+		<div class="content">
+			<p>我是内容</p>
+			<p>我是内容</p>
+		</div>
+
+		<div class="footer clearfix">
+			<button class="close">取消</button>
+			<button>确定</button>
+		</div>
+	</div>
+
+
+	<script>
+		var clickMe = document.querySelector('.click-me');
+		var close1 = document.querySelector('.header > .close');
+		var close2 = document.querySelector('.footer .close');
+		var alertWindow = document.querySelector('.alert-window');
+
+		// function fn (n) {
+		// 	n.stopPropagation();
+		// 	alertWindow.style.display = 'block';
+		// 	document.body.classList.add('cover');
+		// }
+		clickMe.addEventListener('click', function (e) {
+			e.stopPropagation();
+			alertWindow.style.display = 'block';
+			document.body.classList.add('cover');
+		});
+
+
+		close1.addEventListener('click', function () {
+			alertWindow.style.display = 'none';
+			document.body.classList.remove('cover');
+		})
+		close2.addEventListener('click', function () {
+			alertWindow.style.display = 'none';
+			document.body.classList.remove('cover');
+		})
+		window.addEventListener('click', function (e) {
+			alertWindow.style.display = 'none';
+			document.body.classList.remove('cover');
+		});
+		alertWindow.addEventListener('click', function (e) {
+			e.stopPropagation();
+		});
+	</script>
+
+</body>
+
+</html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <script src="http://kejian.jirengu.com/static/js/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/core.js"></script>
     <title>图片懒加载</title>
     <style>
         ul,
@@ -84,9 +84,9 @@
         function isSee($img) {
             var windowHeight = $(window).height(),
                 scrollTop = $(window).scrollTop(),
-                offsetTop = $img.offset().top,
-                nodeHeight = $img.outerHeight();//不加也行
-            if (offsetTop < windowHeight + scrollTop && scrollTop < offsetTop+nodeHeight) {
+                offsetTop = $img.offset().top;
+            // nodeHeight = $img.outerHeight();//不加也行
+            if (offsetTop < windowHeight + scrollTop && scrollTop < offsetTop) {
                 return true;
             } else {
                 return false;

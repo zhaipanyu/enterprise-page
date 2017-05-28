@@ -15,7 +15,6 @@
         body {
             box-sizing: border-box;
             margin: 0 auto;
-            position: relative;
         }
 
         a {
@@ -25,14 +24,16 @@
         .ct {
             position: absolute;
             left: 50%;
-            transform: translateX(-50%);
-            width: 900px;
+            top:50%;
+            transform: translate(-50%,-50%);
+            width: 500px;
+            height: 200px;
             overflow: hidden;
         }
 
         .img-ct {
             position: relative;
-            width: 3600px;
+            width: 2000px;
         }
 
         .img-ct li {
@@ -46,8 +47,8 @@
         }
 
         img {
-            width: 900px;
-            height: 600px;
+            width: 500px;
+            height: 200px;
         }
 
         .btn {
@@ -61,15 +62,18 @@
             background: #ccc;
             line-height: 30px;
             text-align: center;
+            /*border: 1px solid red;*/
         }
 
-        .pre-btn {
+        .btn-pre {
             left: 5px;
+
             /*左*/
         }
 
-        .next-btn {
+        .btn-next {
             right: 5px;
+
         }
 
         .bullet {
@@ -101,15 +105,13 @@
 <body>
     <div class='ct clearfix'>
         <ul class='img-ct clearfix'>
-            <li data-id=0><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg"></a></li>
-            <li data-id=1><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/25.jpg"></a></li>
-            <li data-id=2><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/24.jpg"></a></li>
-            <li data-id=3><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/23.jpg"></a></li>
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/13.jpg"></a></li>
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/14.jpg"></a></li>
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/15.jpg"></a></li>
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/16.jpg"></a></li>
         </ul>
-
-        <a class='pre-btn btn' href="#">&lt</a>
-        <a class='next-btn btn' href="#">&gt</a>
-
+        <a class='btn-pre btn' href="#">&lt</a>
+        <a class='btn-next btn' href="#">&gt</a>
         <ul class='bullet clearfix'>
             <li class='active'></li>
             <li></li>
@@ -119,26 +121,86 @@
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script>
-        var $imgCt = $(".img-ct");
-        var $btnPre = $(".pre-btn");
-        var $btnNext = $(".next-btn");
-        var $bullet = $(".bullet");
-        var $curIndex = 0;//-1,0123,4
-        var $imgLock = true;
-        var clock;
-        var $last = $imgCt.children("li").last().clone();
-        var $first = $imgCt.children("li").first().clone();
-        var $imgWidth = $imgCt.children("li").first().width();
-        var $imgLen = $imgCt.children("li").length;//4
-
-        $imgCt.prepend($last);
-        $imgCt.append($first);
-        $imgCt.css({
-            width: $imgWidth * ($imgLen + 2),//加了2张,序号是:412341
-            left: -$imgWidth//左移一个宽度,显示原先的第一张
-        })
-      
+            var $imgCt = $(".img-ct"),
+                $btnPre = $(".btn-pre"),
+                $btnNext = $(".btn-next"),
+                $bullet = $(".bullet"),
+                $curIndex = 0,
+                $imgLock = true,
+                clock;
+            var $last = $imgCt.children("li").last().clone(),
+                $first = $imgCt.children("li").first().clone()
+            var $imgWidth = $imgCt.children("li").first().width(),
+                $imgLen = $imgCt.children("li").length
+            $imgCt.prepend($last)
+            $imgCt.append($first)
+            $imgCt.css({
+                width: $imgWidth*($imgLen+2),
+                left: -$imgWidth
+            })
+            $btnPre.on("click", function(){
+                if($imgLock === false) return;
+                $imgLock = false;
+                pre(1);
+            })
+            $btnNext.on("click", function(){
+                if($imgLock === false) return;
+                $imgLock = false;
+                next(1);
+            })
+            $bullet.on("click", "li", function(){
+                $bulletIndex = $(this).index()
+                next($bulletIndex-$curIndex)
+            })
+            timeClock()
+            $(".ct").on("mouseenter",function(){
+                clearInterval(clock)
+            })
+            $(".ct").on("mouseleave",function(){
+                timeClock()
+            })
+            function next(idx){
+                $imgCt.fadeOut(500, function(){
+                    $imgCt.css({
+                        left: "-="+idx*$imgWidth
+                    })
+                })
+                $imgCt.fadeIn(500, function(){
+                    $curIndex += idx;
+                    if($curIndex >= $imgLen){
+                        $imgCt.css({left: -$imgWidth});
+                        $curIndex = 0;
+                    }
+                    $imgLock = true;
+                    setBullet()
+                })
+            }
+            function pre(idx){
+                $imgCt.fadeOut(500, function(){
+                    $imgCt.css({
+                        left: "+="+idx*$imgWidth
+                    })
+                })
+                $imgCt.fadeIn(500, function(){
+                    $curIndex -= idx;
+                    if($curIndex < 0) {
+                        $imgCt.css({left: -$imgWidth*$imgLen});
+                        $curIndex = $imgLen-1;
+                    }
+                    $imgLock = true;
+                    setBullet()
+                })
+            }
+            function setBullet(){
+                $bullet.children("li").removeClass("active");
+                $bullet.children("li").eq($curIndex).addClass("active")
+            }
+            function timeClock(){
+                    clock = setInterval(function(){
+                    next(1)
+                }, 2000)
+            }
     </script>
-</body>
 
+</body>
 </html>

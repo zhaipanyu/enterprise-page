@@ -109,8 +109,9 @@ app.get('/getNews', function(req, res) {
         
 
 	]
-
-	var pageIndex = req.query.page;
+	//最好这样,var pageIndex = parseInt(req.query.page),因为JS 发出的请求全是 string就算你写的是1 后端拿到的也是 String
+	//1. DOM getAttribute 永远得到的是 string2. AJAX 请求和响应里的东西永远都是 string
+	var pageIndex = parseInt(req.query.page);
 	var len = 3;
 
 	var retNews = 	news.slice(pageIndex*len, pageIndex*len+len); //0, 3;  3, 6

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>轮播</title>
+    <title>手写渐变轮播</title>
     <style>
         .clearfix::after {
             content: "";
@@ -114,7 +114,8 @@
         var $imgCt = $(".img-ct"),
             $btnPre = $(".btn-pre"),
             $btnNext = $(".btn-next"),
-            $bullet = $(".bullet");
+            $bullet = $(".bullet"),
+            isAnimal = true;
         var $firstLi = $imgCt.children('li').first().clone();
         var $lastLi = $imgCt.children('li').last().clone();
         var imgWidth = $imgCt.children('li').width();//拿到300
@@ -128,14 +129,25 @@
         $imgCt.css({ left: -imgWidth });//不写这句初始显示排在第一的第四张图片,写了显示第2张
 
         //点击上一张事件
-        $btnPre.on('click', function () {
+        $btnPre.on('click', function (e) {
+            //判断锁
+            if (isAnimal === false) { return };
+            isAnimal = false;
+            btnPre();
+            
+        })
+        //封装
+        function btnPre() {
+
             //根据left值判断
             var imgCtLeft = $imgCt.css('left');
             //imgCt右移一个单位
             $imgCt.animate({ left: '+=' + imgWidth }, 500, function () {
-                var idx = Math.abs(parseInt(imgCtLeft)/parseInt(imgWidth));//
+                var idx = Math.abs(parseInt(imgCtLeft) / parseInt(imgWidth));//
                 //  console.log('idx:'+(idx-2));
-                bullet(idx-2);
+                bullet(idx - 2);
+                //偏移完毕开锁
+                isAnimal = true;
                 // console.log('点击第一次imgCtLeft'+imgCtLeft);//0
                 if (parseInt(imgCtLeft) === -imgWidth) {//初始位置点击上一张时
                     // console.log('满足条件');
@@ -144,33 +156,42 @@
                     bullet(3);
                 }
             })
-        })
+
+        }
 
         //点击显示下一张
         $btnNext.on('click', function () {
-            //封装
+            //判断锁
+            if (isAnimal === false) { return };
+            isAnimal = false;
+            btnNext();
+        })
+        //封装
+        function btnNext() {
             //imgCt的left
             var imgCtLeft = $imgCt.css('left');//带px
             $imgCt.animate({ left: '-=' + imgWidth }, 500, function () {
                 //位移的绝对值,除以图宽,转为图片索引
-                 var idx = Math.abs(parseInt(imgCtLeft)/parseInt(imgWidth));//
+                var idx = Math.abs(parseInt(imgCtLeft) / parseInt(imgWidth));//
                 //  console.log('idx:'+idx);
                 bullet(idx);
+                isAnimal = true;
                 if (parseInt(imgCtLeft) === -imgWidth * imgCount) {//在第5张时点击显示第六张时
-                // 不加锁会出现left偏大而白屏
+                    // 不加锁会出现left偏大而白屏
                     //迅速右移到第二张
                     $imgCt.css({ left: -imgWidth })
                     bullet(0);
                 }
             })
-        })
+        }
+
 
         //点击小圆点切换图片
-        $bullet.children('li').on('click',function(){
+        $bullet.children('li').on('click', function () {
             //取点击bullet的li索引
             var idx = $(this).index();//0-3
             // console.log('idx:'+idx);
-            $imgCt.animate({ left: -imgWidth*(idx+1) }, 500, function () {
+            $imgCt.animate({ left: -imgWidth * (idx + 1) }, 500, function () {
                 bullet(idx);//0-3
             })
         })

@@ -109,6 +109,23 @@
         </ul>
     </div>
 
+     <div class="carousel">
+        <ul class="img-ct clearfix">
+            <li>我是第一张<a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/13.jpg"></a></li>
+            <li>我是第二张<a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/14.jpg"></a></li>
+            <li>我是第三张<a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/15.jpg"></a></li>
+            <li>我是第四张<a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/16.jpg"></a></li>
+        </ul>
+        <a class="btn btn-pre">&lt</a>
+        <a class="btn btn-next">&gt</a>
+        <ul class="bullet">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script>
         function Carousel($ct) {
@@ -222,7 +239,9 @@
 
         }//Carousel
 
-        new Carousel($('.carousel'))
+        new Carousel($('.carousel').eq(0))
+        new Carousel($('.carousel').eq(1))
+
     </script>
 
 </body>

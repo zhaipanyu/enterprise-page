@@ -68,7 +68,7 @@
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script>
         pubu();
-        $(window).on('resize', function () {
+        $(window).on('resize', function () {//屏幕拉伸时
             pubu();
         })
 
@@ -92,7 +92,7 @@
                     // top: itemArray[minIdx]
                 })
                 //高度赋值给itemArray[]
-                itemArray[minIdx] += $(this).outerHeight(true);
+                itemArray[minIdx] += $(this).outerHeight(true);//重点是+=,高度累加
                 //关键:保留高度,把高度值放入数组里.下次排列再拿出来比较高度,取最高度最小的作为放置点.
             })
 

@@ -1,8 +1,6 @@
-# enterprise-page
+## 1.Issues里为以前工作开发博客集中收录在github上
 
-## Issues里为以前工作开发博客集中收录在github上
-
-## 工作总结demo
+## 2.工作总结demo
 - javascript_demo
 
 - jQuery组件化

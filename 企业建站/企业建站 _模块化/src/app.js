@@ -10,4 +10,4 @@ requirejs.config({
 })
 requirejs(['js/main']);
 
-//node r.js -o build.js
+//加载模块:决定加载哪一个模块,哪些文件,做一个配置

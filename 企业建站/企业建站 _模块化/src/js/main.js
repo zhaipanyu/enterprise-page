@@ -5,3 +5,5 @@ define(['jquery','addmore','carousel','gotop'],
 		AddMore.init($('.btnMore'))
         // Fn.init();
 })
+
+//define:定义模块

@@ -1,13 +1,12 @@
-# enterprise-page
+## 1.Issues里为以前工作开发博客集中收录在github上
 
-- 1.css和HTML_demo和项目
+## 2.工作总结demo
+- javascript_demo
 
-- 2.jQuery_demo和项目
+- jQuery组件化
 
-- 3.Issues里为日常开发总结
+- HTML5和CSS3最新属性应用
 
-- 4.javascript_demo
+- css和HTML_demo和项目
 
-- 5.jQuery组件化
-
-- 6.HTML5和CSS3最新属性应用
+- jQuery_demo和项目

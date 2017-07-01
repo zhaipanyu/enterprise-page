@@ -11,5 +11,10 @@
 	out: '../dist/merge.js' 
 })
 
-//终极命令行指令,作用输出上面out路径:node r.js -o build.js
-//为什么这里要重复配置一次文件路径
+
+
+//终端定位到带有r.js文件,输入终极命令行指令,作用输出上面out路径:node r.js -o build.js
+
+//逻辑:第一步
+//1.确定路径,确定找name:app这个文件,通过name
+//2.输出到out对应的文件

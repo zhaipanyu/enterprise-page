@@ -1,0 +1,14 @@
+<script type="text/javascript">
+    function createPerson(opts) {
+        var person = {
+            name: opys.name || 'peter'
+        };
+        person.sayName = function () {
+            console.log(this.name);
+        }
+        return person;
+    }
+    var p1 = createPerson({ name: 'tom' });
+    var p2 = createPerson({ name: 'kite' })
+
+</script>

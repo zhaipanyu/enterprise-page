@@ -19,7 +19,7 @@
             }
             for (var i = 0; i < events[evt].length; i++) {
                 events[evt][i].handler(args);
-                
+
             }
         }
         return {
@@ -34,11 +34,12 @@
     EventCenter.on('my_event', function (data) {
         console.log('my_event2 received...');
     });
-    EventCenter.fire('my_event',);
+    EventCenter.fire('my_event', );
 //逻辑:
 //最外面放一个空对象.
 //A方法作用:讲若干函数放入数组
 //B方法:调用A里面所有的方法.
 //AB怎么联系起来:通过外面的events对象,AB都是操作events对象.
 //所以1对多.
+
 </script>

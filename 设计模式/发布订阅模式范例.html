@@ -1,0 +1,50 @@
+<script type="text/javascript">
+    var EventCenter = (function () {
+        //外部创建一个可以包含数组的对象
+        var events = {};
+        /*
+          {
+            my_event: [{handler: function(data){xxx}}, {handler: function(data){yyy}}]
+          }
+        */
+        //这里只保存方法到数组,不做操作.
+        function on(evt, handler) {
+            events[evt] = events[evt] || [];
+            events[evt].push({
+                handler: handler
+            });
+        }
+        //对上面保存在数组里的函数做相关操作
+        //重点是:都是对同一event对象的数组操作
+        function fire(evt, args) {
+            if (!events[evt]) {
+                return;
+            }
+            for (var i = 0; i < events[evt].length; i++) {
+                events[evt][i].handler(args);
+            }
+        }
+        function off(evt) {
+            delete events[evt]
+        }
+        return {
+            on: on,
+            fire: fire,
+            off: off
+        }
+    })();
+    EventCenter.on('my_event', function (data) {
+        console.log('my_event received...');
+    });
+    EventCenter.on('my_event', function (data) {
+        console.log('my_event2 received...');
+    });
+    EventCenter.fire('my_event');
+    EventCenter.on('change', function (val) {
+        console.log('change...  now val is ' + val);
+    });
+    EventCenter.fire('change', 'Tom');
+    EventCenter.off('change');//events[change]就被删除了
+    //所以不会再调用change相关方法(通知),delete原理就是删除数组里面的元素(即方法)
+
+</script>

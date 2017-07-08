@@ -1,0 +1,44 @@
+<script type="text/javascript">
+    var EventCenter = (function () {
+        var events = {};
+        /*
+          {
+            my_event: [{handler: function(data){xxx}}, {handler: function(data){yyy}}]
+          }
+        */
+        //上面用数组保存方法的原因:这样实现了一个fire调用多个方法.一对多.
+        function on(evt, handler) {
+            events[evt] = events[evt] || [];
+            events[evt].push({
+                handler: handler
+            });
+        }
+        function fire(evt, args) {
+            if (!events[evt]) {
+                return;
+            }
+            for (var i = 0; i < events[evt].length; i++) {
+                events[evt][i].handler(args);
+                
+            }
+        }
+        return {
+            on: on,
+            fire: fire
+        }
+    })();
+
+    EventCenter.on('my_event', function (data) {
+        console.log('my_event received...');
+    });
+    EventCenter.on('my_event', function (data) {
+        console.log('my_event2 received...');
+    });
+    EventCenter.fire('my_event',);
+//逻辑:
+//最外面放一个空对象.
+//A方法作用:讲若干函数放入数组
+//B方法:调用A里面所有的方法.
+//AB怎么联系起来:通过外面的events对象,AB都是操作events对象.
+//所以1对多.
+</script>

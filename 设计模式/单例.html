@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    var People = (function () {
+        var instance;
+        function init() {
+            //定义私有方法和属性
+            //做某事
+            return {
+            //定义公共方法和属性
+            };
+        }
+        return {
+            createPeople: function () {
+                if (!instance) {
+                    instance = init();
+                }
+                return instance;
+            }
+        };
+    }());
+    var obj1 = People.createPeople();
+    var obj2 = People.createPeople();
+
+</script>

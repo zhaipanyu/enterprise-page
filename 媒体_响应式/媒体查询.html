@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+  <style>
+    /*1. 在页面宽度> 1200px 时页面背景为红色 
+2. 在页面1200px>=宽度> 900px  时页面背景为绿色
+3. 在页面900px>=宽度> 600px  时页面背景为黄色
+4. 宽度<=600px 背景为灰色*/
+@media screen and (max-width :600px){
+  body{
+    background:gray;
+  }
+}
+@media screen and (min-width :600px){
+  body{
+    background:yellow;
+  }
+}
+@media screen and (min-width :900px){
+  body{
+    background:green;
+  }
+}
+@media screen and (min-width :1200px){
+  body{
+    background:pink;
+  }
+}
+
+body {
+  margin :50px  50px;
+  text-align:left;
+}
+  </style>
+<body>
+<div>1.在页面宽度> 1200px 时页面背景为红色 </div>
+<div>2. 在页面1200px>=宽度> 900px  时页面背景为绿色</div>
+<div>3. 在页面900px>=宽度> 600px  时页面背景为黄色</div>
+<div>4. 宽度< =600px 背景为灰色</div>
+</body>
+</html>
